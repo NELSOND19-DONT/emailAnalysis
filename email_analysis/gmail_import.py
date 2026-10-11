@@ -18,7 +18,7 @@ def connect():
         from google_auth_oauthlib.flow import InstalledAppFlow
         from googleapiclient.discovery import build
     except ImportError as e:
-        raise RuntimeError('Install Gmail dependencies: py -3 -m pip install -r requirements-gmail.txt') from e
+        raise RuntimeError('Run SETUP_GMAIL.cmd to install Gmail dependencies, then restart START.cmd.') from e
     private = ROOT / 'private'; private.mkdir(exist_ok=True)
     token = private / 'gmail-token.json'
     client = private / 'gmail-client.json'

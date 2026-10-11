@@ -1,4 +1,4 @@
 @echo off
 cd /d "%~dp0"
-py -3 app.py
+call run_python.cmd app.py
 if errorlevel 1 pause

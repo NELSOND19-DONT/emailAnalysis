@@ -8,19 +8,21 @@ Install Python 3.11 or newer from python.org with Tcl/Tk and the Windows Python 
 
 ```powershell
 cd .\emailAnalysis\email_analysis
-py -3 app.py
-py -3 -m unittest -v
+.\run_python.cmd app.py
+.\run_python.cmd -m unittest -v
 ```
 
 Copy `config.example.json` to `config.json` to customize rules. Sender, subject, and body rules are case-insensitive substring matches. Each hit adds 0.15 to a base score of 0.55, capped at 0.95. Scores are rule-strength heuristics, not calibrated probabilities. Default: multiple categories, October 11, 2025 through October 11, 2026 inclusive, no email cap, attachments excluded, zero AI cost. Set inclusive `start_date`/`end_date` to `YYYY-MM-DD`, or null. `max_emails` is null for no limit or an integer cap on examined messages per import; a capped run may cover only part of the selected year. With one category enabled, the strongest match wins, with alphabetical tie breaking. Unmatched mail is Uncategorized. Scores below `review_threshold` need review.
 
 ## Connect Gmail locally
 
+`run_python.cmd` uses this app's virtual environment first, then an installed Python launcher or Python, then the bundled Codex Python runtime when available. `SETUP_GMAIL.cmd` creates an ignored `.venv` and installs Gmail dependencies there. No system Python installation is modified.
+
 Your connected Codex Gmail account does not grant this independent desktop application a token. Follow [Google's Python quickstart](https://developers.google.com/workspace/gmail/api/quickstart/python) to create a Google Cloud project, enable Gmail API, configure OAuth consent, and create an OAuth client of type **Desktop app**. For testing, add your Gmail address as a test user. Save the downloaded client JSON as `email_analysis/private/gmail-client.json` (create `private` if needed). Never commit this file.
 
 ```powershell
-py -3 -m pip install -r requirements-gmail.txt
-py -3 app.py
+.\SETUP_GMAIL.cmd
+.\START.cmd
 ```
 
 Click **Import Gmail (read-only)**, sign in in your browser, and grant read-only Gmail access. Tokens are stored in ignored `private/gmail-token.json`. The app lists and reads messages currently labeled INBOX in the configured period, using Europe/Berlin boundaries and Gmail's received timestamp. Archived/sent/spam/trash mail is excluded. The first import can take several minutes; the window shows progress. Repeating the same range avoids duplicates; already imported mail stays in the app even if subsequently archived. Completed imports survive a interrupted connection and can be retried. Delete `private/gmail-token.json` to disconnect locally and revoke the grant from your Google Account to revoke provider access. Google's testing-mode tokens may require repeat sign-in. OAuth and live mailbox access require your credentials and have not been tested against your real account.

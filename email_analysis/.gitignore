@@ -1,0 +1,13 @@
+private/
+config.json
+__pycache__/
+*.db*
+*.eml
+*.mbox
+labels*.json
+evaluation*.json
+.venv/
+gmail-client.json
+gmail-token.json
+credentials.json
+token.json

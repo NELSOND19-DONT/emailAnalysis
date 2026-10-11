@@ -1,0 +1,13 @@
+{
+  "max_emails": null,
+  "start_date": "2025-10-11",
+  "end_date": "2026-10-11",
+  "multiple_categories": true,
+  "review_threshold": 0.75,
+  "categories": {
+    "Finance": {"sender": [], "subject": ["invoice", "receipt", "payment"], "body": ["amount due"]},
+    "Work": {"sender": [], "subject": ["meeting", "project"], "body": ["deliverable"]},
+    "Newsletters": {"sender": [], "subject": ["newsletter", "digest"], "body": ["unsubscribe"]},
+    "Personal": {"sender": [], "subject": ["birthday", "dinner"], "body": []}
+  }
+}
